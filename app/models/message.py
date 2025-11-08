@@ -1,9 +1,11 @@
 from sqlalchemy import Column, Text, Boolean, Integer, ForeignKey, DateTime, func, Enum
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
 Base = declarative_base()
 
-class Message(Base):
+class Message(Base,SerializerMixin):
     __tablename__ = 'messages'
 
     id = Column(Integer(), primary_key=True, autoincrement=True)

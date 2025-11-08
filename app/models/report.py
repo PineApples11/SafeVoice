@@ -1,10 +1,12 @@
 from sqlalchemy import Column, Integer, Boolean, Enum, Text, DateTime, func, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
 
 
 Base = declarative_base()
 
-class Report(Base):
+class Report(Base,SerializerMixin):
     __tablename__ = 'reports'
 
     id = Column(Integer(), primary_key=True, autoincrement=True)
