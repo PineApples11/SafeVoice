@@ -1,21 +1,18 @@
-from sqlalchemy import Column, Integer, Boolean, Enum, Text, DateTime, func, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import func, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
+from app.extensions import db
 
-
-Base = declarative_base()
-
-class Report(Base,SerializerMixin):
+class Report(db.Model,SerializerMixin):
     __tablename__ = 'reports'
 
-    id = Column(Integer(), primary_key=True, autoincrement=True)
-    user_id = Column(Integer(), ForeignKey('users.id'),nullable=True)
-    abuse_type = Column(Enum("physical","mental","emotional",name="abuse_types"), nullable=False, enumerated=True)
-    description = Column(Text(), nullable=True)
-    is_anonymous = Column(Boolean(), default=False)
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer(), ForeignKey('users.id'),nullable=True)
+    abuse_type = db.Column(db.Enum("physical","mental","emotional",name="abuse_types"), nullable=False, enumerated=True)
+    description = db.Column(db.Text(), nullable=True)
+    is_anonymous = db.Column(db.Boolean(), default=False)
+    created_at = db.Column(db.DateTime, default=func.now(), nullable=False)
+    updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     
 
     user = relationship("User", back_populates="reports")

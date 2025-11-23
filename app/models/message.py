@@ -1,20 +1,20 @@
-from sqlalchemy import Column, Text, Boolean, Integer, ForeignKey, DateTime, func, Enum
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import  ForeignKey,func
 from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
+from app.extensions import db  
 
-Base = declarative_base()
 
-class Message(Base,SerializerMixin):
+
+class Message(db.Model,SerializerMixin):
     __tablename__ = 'messages'
 
-    id = Column(Integer(), primary_key=True, autoincrement=True)
-    user_id = Column(Integer(), ForeignKey('users.id'), nullable=False)
-    is_anonymous = Column(Boolean(), default=False)
-    receiver_type = Column(Enum("admin","support","user", name="receiver_types"), nullable=False)
-    content = Column(Text(), nullable=False)
-    is_read = Column(Boolean(), default=False)
-    created_at = Column(DateTime, default=func.now(), nullable=False)
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer(), ForeignKey('users.id'), nullable=False)
+    is_anonymous = db.Column(db.Boolean(), default=False)
+    receiver_type = db.Column(db.Enum("admin","support","user", name="receiver_types"), nullable=False)
+    content = db.Column(db.Text(), nullable=False)
+    is_read = db.Column(db.Boolean(), default=False)
+    created_at = db.Column(db.DateTime, default=func.now(), nullable=False)
 
     user = relationship("User", back_populates="messages")
 
