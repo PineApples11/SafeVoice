@@ -5,7 +5,7 @@ from app.extensions import db
 
 
 
-class User(db.model,SerializerMixin):
+class User(db.Model,SerializerMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
