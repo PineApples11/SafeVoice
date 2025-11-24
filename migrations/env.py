@@ -4,10 +4,14 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from app.extensions import db
+from  app.extensions  import db
 from app import create_app
 from dotenv import load_dotenv
 import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 
 load_dotenv()
@@ -29,6 +33,7 @@ app.app_context().push()
 target_metadata = db.metadata
 
 database_url = os.getenv('DATABASE_URL')
+print("Using database URL:", database_url)
 config.set_main_option("sqlalchemy.url", database_url)
 
 # other values from the config, defined by the needs of env.py,
