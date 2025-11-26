@@ -8,7 +8,7 @@ class Report(db.Model,SerializerMixin):
 
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer(), ForeignKey('users.id'),nullable=True)
-    abuse_type = db.Column(db.Enum("physical","mental","emotional",name="abuse_types"), nullable=False, enumerated=True)
+    abuse_type = db.Column(db.Enum("physical","mental","emotional",name="abuse_types"), nullable=False)
     description = db.Column(db.Text(), nullable=True)
     is_anonymous = db.Column(db.Boolean(), default=False)
     created_at = db.Column(db.DateTime, default=func.now(), nullable=False)

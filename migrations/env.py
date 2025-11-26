@@ -4,11 +4,12 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from  app.extensions  import db
+from app.extensions import db
 from app import create_app
 from dotenv import load_dotenv
 import os
 import sys
+import app.models
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
